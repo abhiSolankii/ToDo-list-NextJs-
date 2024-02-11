@@ -1,95 +1,125 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import "./page.css";
+import React, { useState } from "react";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+const page = () => {
+  const [task, settask] = useState("");
+  const [desc, setdesc] = useState("");
+  const [mainTask, setmainTask] = useState([]);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setmainTask([...mainTask, { task, desc }]);
+    settask("");
+    setdesc("");
+    console.log(task);
+    console.log(desc);
+    console.log(mainTask);
+  };
+  const deleteHandler = (i) => {
+    let copyTask1 = [...mainTask];
+    let removedTask = copyTask1.splice(i, 1);
+    setmainTask(copyTask1);
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    // alert("Deleted: " + JSON.stringify(removedTask[0].task));
+  };
+  const editHandler = (i) => {
+    let copyTask2 = [...mainTask];
+    settask(copyTask2[i].task);
+    setdesc(copyTask2[i].desc);
+    deleteHandler(i);
+  };
+  let renderTask = (
+    <div
+      style={{
+        padding: "1rem 0 1rem 1rem",
+        fontFamily: "initial",
+        fontSize: "1.5rem",
+      }}
+    >
+      No Task available
+    </div>
   );
-}
+  if (mainTask.length > 0) {
+    renderTask = mainTask.map((obj, i) => {
+      return (
+        <li key={i} style={{ listStyle: "none" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "0 0 0.5rem 0",
+              padding: "0 1rem 0 1rem",
+              fontSize: "1.5rem",
+            }}
+          >
+            <h4 style={{ fontFamily: "monospace" }}>{obj.task}</h4>
+            <h5 style={{ fontFamily: "serif" }}>{obj.desc}</h5>
+            <div style={{}}>
+              <button
+                style={{
+                  backgroundColor: "blue",
+                  height: "2rem",
+                  width: "4rem",
+                  color: "white",
+                }}
+                onClick={() => editHandler(i)}
+              >
+                Edit
+              </button>
+              <button
+                style={{
+                  backgroundColor: "red",
+                  height: "2rem",
+                  width: "4rem",
+                  color: "white",
+                }}
+                onClick={() => {
+                  deleteHandler(i);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <hr></hr>
+        </li>
+      );
+    });
+  }
+
+  return (
+    <div>
+      <h1 className="title">My todo list</h1>
+      <form onSubmit={submitHandler}>
+        <input
+          className="input-box-1"
+          placeholder="Enter task..."
+          value={task}
+          onChange={(e) => {
+            settask(e.target.value);
+          }}
+        />
+        <input
+          className="input-box-2"
+          placeholder="Enter description..."
+          value={desc}
+          onChange={(e) => {
+            setdesc(e.target.value);
+          }}
+        />
+        <button className="add">Add task</button>
+      </form>
+      <hr></hr>
+      <div
+        style={{
+          backgroundColor: "lightgrey",
+        }}
+      >
+        <ul>{renderTask}</ul>
+      </div>
+    </div>
+  );
+};
+
+export default page;

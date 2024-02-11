@@ -1,0 +1,81 @@
+.title {
+  color: white;
+  background-color: #2f80ed; /* Use a vibrant color for the title */
+  text-align: center;
+  height: 3rem;
+  line-height: 3rem; /* Center the text vertically */
+}
+
+.input-box-1,
+.input-box-2 {
+  margin: 1rem; /* Reduce margin for input boxes */
+  padding: 0.5rem; /* Add padding for better spacing */
+  border: 2px solid #ccc; /* Add a border for input boxes */
+  border-radius: 4px; /* Rounded corners */
+  width: calc(100% - 2rem); /* Take up available width */
+  font-size: 1.2rem; /* Adjust font size */
+  font-family: Arial, sans-serif; /* Use a common font */
+}
+
+.add {
+  margin: 1rem;
+  padding: 0.5rem 1rem; /* Add padding for button */
+  border: none;
+  background-color: #4caf50; /* Use a green color for the button */
+  color: white;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+  cursor: pointer; /* Show pointer on hover */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.add:hover {
+  background-color: #45a049; /* Darken the button color on hover */
+}
+
+.task-container {
+  background-color: #f9f9f9; /* Use a light background color for the task container */
+  border: 1px solid #ddd; /* Add a border for the task container */
+  border-radius: 4px; /* Rounded corners */
+  padding: 1rem; /* Add padding for spacing */
+  margin: 1rem; /* Adjust margin for spacing */
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; /* Add margin between tasks */
+}
+
+.task h4 {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.task h5 {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  color: #666; /* Use a darker color for description */
+}
+
+.task button {
+  padding: 0.5rem 1rem; /* Add padding for button */
+  margin-left: 0.5rem; /* Add margin between buttons */
+  border: none;
+  color: white;
+  cursor: pointer; /* Show pointer on hover */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.task button.edit {
+  background-color: #3498db; /* Use a blue color for edit button */
+}
+
+.task button.delete {
+  background-color: #e74c3c; /* Use a red color for delete button */
+}
+
+.task button:hover {
+  opacity: 0.8; /* Reduce opacity on hover */
+}
